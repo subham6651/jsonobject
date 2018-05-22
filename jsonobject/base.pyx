@@ -236,6 +236,7 @@ class JsonObjectBase(object):
         if key in self._properties_by_key:
             self[key] = wrapped
         else:
+            self._obj.pop(key, None)
             setattr(self, key, wrapped)
 
     @classmethod
