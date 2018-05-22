@@ -197,7 +197,7 @@ class JsonObjectBase(object):
                                'JsonObject must wrap a dict or None')
         self._wrapped = {}
 
-        for key, value in self._obj.items():
+        for key, value in self._obj.copy().items():
             try:
                 self.set_raw_value(key, value)
             except AttributeError:
@@ -236,6 +236,7 @@ class JsonObjectBase(object):
         if key in self._properties_by_key:
             self[key] = wrapped
         else:
+            self._obj.pop(key, None)
             setattr(self, key, wrapped)
 
     @classmethod
